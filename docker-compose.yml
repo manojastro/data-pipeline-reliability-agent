@@ -1,0 +1,18 @@
+services:
+  data-reliability-agent:
+    build: .
+    ports:
+      - "127.0.0.1:8103:8103"
+    environment:
+      DATABASE_PATH: /app/data/reliability.db
+      LLM_MODE: mock
+      API_KEY: ${API_KEY:-local-demo-key}
+      API_KEY_ROLE: ${API_KEY_ROLE:-admin}
+      API_KEY_ACTOR: ${API_KEY_ACTOR:-local-demo-admin}
+      CORS_ORIGINS: http://localhost:8103
+    volumes:
+      - reliability-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  reliability-data:

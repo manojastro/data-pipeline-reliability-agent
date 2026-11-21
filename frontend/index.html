@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LedgerLine · Data Reliability Control Room</title>
+  <link rel="stylesheet" href="/ui/style.css">
+  <link rel="stylesheet" href="/ui/auth.css">
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><span class="brand-mark">LL</span><div><strong>LedgerLine</strong><small>Reliability control room</small></div></div>
+      <nav>
+        <a class="active" href="#overview">Overview</a>
+        <a href="#lineage">Lineage</a>
+        <a href="#investigation">Investigation</a>
+        <a href="#approval">Approval queue</a>
+      </nav>
+      <div class="mode"><i></i><span>Deterministic mock mode<br><small>No paid LLM required</small></span></div>
+      <label class="credential">CONTROL CREDENTIAL<input id="api-key" type="password" autocomplete="off" placeholder="Required for workflow changes"><small>Required to run, approve, or execute; held in memory only.</small></label>
+    </aside>
+    <main>
+      <header>
+        <div><p class="eyebrow">DATA PRODUCT / DAILY REVENUE</p><h1>Pipeline reliability</h1><p class="subtitle">Operational success is not data correctness.</p></div>
+        <div class="actions"><button class="secondary" data-scenario="healthy">Run healthy</button><button class="primary" data-scenario="incorrect_join">Inject silent failure</button></div>
+      </header>
+
+      <section id="notice" class="notice"><span class="pulse"></span><div><strong>Ready for evidence-backed analysis</strong><p>Inject the incorrect-join scenario to see a SUCCESS run fail logical data gates.</p></div></section>
+
+      <section id="overview" class="kpis">
+        <article><span>Pipeline runs</span><strong id="runs">0</strong><small>synthetic orchestrator</small></article>
+        <article><span>Latest DQ score</span><strong id="quality">—</strong><small>8 deterministic dimensions</small></article>
+        <article class="warn"><span>Silent failures</span><strong id="silent">0</strong><small>SUCCESS ≠ correct</small></article>
+        <article><span>RCA accuracy</span><strong id="accuracy">0%</strong><small>vs ground truth</small></article>
+        <article><span>Pending approvals</span><strong id="pending">0</strong><small>human safety gate</small></article>
+      </section>
+
+      <section class="grid">
+        <article class="panel span-2" id="lineage">
+          <div class="panel-title"><div><p class="eyebrow">IMPACT PATH</p><h2>Data lineage</h2></div><span class="pill">3 nodes observed</span></div>
+          <div class="lineage">
+            <div class="node"><i class="source"></i><small>RAW</small><strong>orders</strong><span>8 rows</span></div><div class="edge"><em>join</em></div>
+            <div class="node suspect"><i></i><small>ANALYTICS</small><strong>enriched_orders</strong><span id="row-delta">awaiting run</span></div><div class="edge"><em>aggregate</em></div>
+            <div class="node"><i class="mart"></i><small>MART</small><strong>daily_revenue</strong><span>business KPI</span></div>
+          </div>
+        </article>
+        <article class="panel" id="quality-panel">
+          <div class="panel-title"><div><p class="eyebrow">QUALITY VECTOR</p><h2>Eight dimensions</h2></div></div>
+          <div id="quality-bars" class="quality-bars"><p class="muted">Run a scenario to profile data.</p></div>
+        </article>
+      </section>
+
+      <section class="grid investigation-grid" id="investigation">
+        <article class="panel">
+          <div class="panel-title"><div><p class="eyebrow">AGENT TRAJECTORY</p><h2>Investigation</h2></div><span id="pipeline-status" class="pill">IDLE</span></div>
+          <ol id="states" class="states"><li><span>01</span>Awaiting pipeline event</li></ol>
+        </article>
+        <article class="panel span-2 evidence-panel">
+          <div class="panel-title"><div><p class="eyebrow">GROUNDED CONCLUSION</p><h2>Root cause & evidence</h2></div><span id="confidence" class="confidence">—</span></div>
+          <h3 id="root-cause">No active investigation</h3>
+          <div id="evidence" class="evidence"><p class="muted">Evidence records will appear here and remain in the audit history.</p></div>
+        </article>
+      </section>
+
+      <section class="grid" id="approval">
+        <article class="panel span-2 fix-card">
+          <div class="panel-title"><div><p class="eyebrow">BOUNDED REMEDIATION</p><h2>dbt fix proposal</h2></div><span id="risk" class="risk">NO PROPOSAL</span></div>
+          <p id="fix-title" class="muted">The agent can propose read-only SELECT/WITH transformations only.</p>
+          <pre id="sql">-- awaiting validated proposal</pre>
+        </article>
+        <article class="panel validation-card">
+          <div class="panel-title"><div><p class="eyebrow">SHADOW GATE</p><h2>Before → after</h2></div></div>
+          <div class="score-shift"><strong id="before">—</strong><span>→</span><strong id="after">—</strong></div>
+          <ul id="checks"><li>Awaiting validation</li></ul>
+          <button id="approve" class="approve" disabled>Approve & simulate deploy</button>
+        </article>
+      </section>
+
+      <footer><span>LedgerLine v1.0</span><span><a href="/docs">OpenAPI</a> · <a href="/metrics">Prometheus metrics</a></span></footer>
+    </main>
+  </div>
+  <script src="/ui/app.js" defer></script>
+</body>
+</html>
